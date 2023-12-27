@@ -1,6 +1,20 @@
 import { useState } from "react";
 
-export function Alert({ type = "information", heading, children, closable, onClose }) {
+interface Props {
+  type?: string;
+  heading: string;
+  closeable?: boolean;
+  onClose?: () => void;
+  children: React.ReactNode;
+}
+
+export function Alert({
+  type = "information",
+  heading,
+  closeable = true,
+  onClose,
+  children,
+}: Props) {
   const [visible, setVisible] = useState(true);
   if (!visible) {
     return null;
@@ -19,7 +33,7 @@ export function Alert({ type = "information", heading, children, closable, onClo
         </span>
         <span>{heading}</span>
       </div>
-      {closable && (
+      {closeable && (
         <button aria-label="Close" onClick={handleCloseClick}>
           <span role="img" aria-label="Close">
             ❌
