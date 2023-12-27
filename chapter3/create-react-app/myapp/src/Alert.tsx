@@ -16,15 +16,18 @@ export function Alert({
   children,
 }: Props) {
   const [visible, setVisible] = useState(true);
+
   if (!visible) {
     return null;
   }
+
   function handleCloseClick() {
     setVisible(false);
     if (onClose) {
       onClose();
     }
   }
+
   return (
     <div>
       <div>
