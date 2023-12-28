@@ -1,5 +1,6 @@
-import { useEffect, useReducer, useRef, useMemo } from "react";
+import { useEffect, useReducer, useRef, useMemo, useCallback } from "react";
 import { getPerson, sillyExpensiveFunction } from "./getPerson";
+import { Reset } from "./Reset";
 
 interface State {
   name: string | undefined;
@@ -47,6 +48,10 @@ export function PersonScore() {
   const addButtonRef = useRef<HTMLButtonElement>(null);
   const expensiveCalculationResult = useMemo(() => sillyExpensiveFunction(), []);
 
+  const handleReset = useCallback(() => {
+    dispatch({ type: "reset" });
+  }, []);
+
   useEffect(() => {
     async function fetchData() {
       const { name } = await getPerson();
@@ -75,7 +80,7 @@ export function PersonScore() {
         Add
       </button>
       <button onClick={() => dispatch({ type: "decrement" })}>Subtract</button>
-      <button onClick={() => dispatch({ type: "reset" })}>Reset</button>
+      <Reset onClick={handleReset}>Reset</Reset>
     </div>
   );
 }
