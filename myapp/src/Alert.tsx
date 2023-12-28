@@ -1,6 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useState } from "react";
+import {
+  alertContainer,
+  alertText,
+  alertCloseButton,
+  alertContent,
+  alertHeader,
+  alertIcon,
+  headingText,
+} from "./AlertStyles";
 
 type Props = {
   type?: "information" | "warning";
@@ -22,52 +31,18 @@ export function Alert({ type = "information", heading, children, closable, onClo
     }
   }
   return (
-    <div
-      css={css`
-        display: inline-flex;
-        flex-direction: column;
-        text-align: left;
-        padding: 10px 15px;
-        border-radius: 4px;
-        border: 1px solid transparent;
-        color: ${type === "warning" ? "#e7650f" : "#118da0"};
-        background-color: ${type === "warning" ? "#f3e8da" : "#dcf1f3"};
-      `}
-    >
-      <div
-        css={css`
-          display: flex;
-          align-items: center;
-          margin-bottom: 5px;
-        `}
-      >
+    <div css={[alertContainer, alertText(type)]}>
+      <div css={alertHeader}>
         <span
-          css={css`
-            width: 30px;
-          `}
+          css={alertIcon}
           role="img"
           aria-label={type === "warning" ? "Warning" : "Information"}
         >
           {type === "warning" ? "⚠" : "ℹ️"}
         </span>
-        <span
-          css={css`
-            font-weight: bold;
-          `}
-        >
-          {heading}
-        </span>
+        <span css={headingText}>{heading}</span>
         {closable && (
-          <button
-            css={css`
-              border: none;
-              background: transparent;
-              margin-left: auto;
-              cursor: pointer;
-            `}
-            aria-label="Close"
-            onClick={handleCloseClick}
-          >
+          <button css={alertCloseButton} aria-label="Close" onClick={handleCloseClick}>
             <span role="img" aria-label="Close">
               ❌
             </span>
@@ -75,14 +50,7 @@ export function Alert({ type = "information", heading, children, closable, onClo
         )}
       </div>
 
-      <div
-        css={css`
-          margin-left: 30px;
-          color: #000;
-        `}
-      >
-        {children}
-      </div>
+      <div css={alertContent}>{children}</div>
     </div>
   );
 }
