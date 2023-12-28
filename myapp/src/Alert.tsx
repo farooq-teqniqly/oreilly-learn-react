@@ -1,15 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useState } from "react";
-import {
-  alertContainer,
-  alertText,
-  alertCloseButton,
-  alertContent,
-  alertHeader,
-  alertIcon,
-  headingText,
-} from "./AlertStyles";
+import { styles } from "./AlertStyles";
 
 type Props = {
   type?: "information" | "warning";
@@ -31,18 +23,18 @@ export function Alert({ type = "information", heading, children, closable, onClo
     }
   }
   return (
-    <div css={[alertContainer, alertText(type)]}>
-      <div css={alertHeader}>
+    <div css={[styles.alertContainer, styles.alertText(type)]}>
+      <div css={styles.alertHeader}>
         <span
-          css={alertIcon}
+          css={styles.alertIcon}
           role="img"
           aria-label={type === "warning" ? "Warning" : "Information"}
         >
           {type === "warning" ? "⚠" : "ℹ️"}
         </span>
-        <span css={headingText}>{heading}</span>
+        <span css={styles.headingText}>{heading}</span>
         {closable && (
-          <button css={alertCloseButton} aria-label="Close" onClick={handleCloseClick}>
+          <button css={styles.alertCloseButton} aria-label="Close" onClick={handleCloseClick}>
             <span role="img" aria-label="Close">
               ❌
             </span>
@@ -50,7 +42,7 @@ export function Alert({ type = "information", heading, children, closable, onClo
         )}
       </div>
 
-      <div css={alertContent}>{children}</div>
+      <div css={styles.alertContent}>{children}</div>
     </div>
   );
 }
