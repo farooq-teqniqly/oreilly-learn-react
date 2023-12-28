@@ -1,5 +1,5 @@
-import { useEffect, useReducer, useRef } from "react";
-import { getPerson } from "./getPerson";
+import { useEffect, useReducer, useRef, useMemo } from "react";
+import { getPerson, sillyExpensiveFunction } from "./getPerson";
 
 interface State {
   name: string | undefined;
@@ -45,6 +45,7 @@ export function PersonScore() {
   });
 
   const addButtonRef = useRef<HTMLButtonElement>(null);
+  const expensiveCalculationResult = useMemo(() => sillyExpensiveFunction(), []);
 
   useEffect(() => {
     async function fetchData() {
@@ -69,6 +70,7 @@ export function PersonScore() {
       <h3>
         {name}, {score}
       </h3>
+      <p>{expensiveCalculationResult}</p>
       <button ref={addButtonRef} onClick={() => dispatch({ type: "increment" })}>
         Add
       </button>
