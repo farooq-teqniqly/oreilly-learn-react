@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Alert.css";
+import styles from "./Alert.module.css";
 
 type Props = {
   type?: "information" | "warning";
@@ -21,18 +21,18 @@ export function Alert({ type = "information", heading, children, closable, onClo
     }
   }
   return (
-    <div className={`container ${type}`}>
-      <div className="header">
+    <div className={`${styles.container} ${styles[type]}`}>
+      <div className={styles.header}>
         <span
-          className="header-icon"
+          className={styles.headerIcon}
           role="img"
           aria-label={type === "warning" ? "Warning" : "Information"}
         >
           {type === "warning" ? "⚠" : "ℹ️"}
         </span>
-        <span className="header-text">{heading}</span>
+        <span className={styles.headerText}>{heading}</span>
         {closable && (
-          <button className="close-button" aria-label="Close" onClick={handleCloseClick}>
+          <button className={styles.closeButton} aria-label="Close" onClick={handleCloseClick}>
             <span role="img" aria-label="Close">
               ❌
             </span>
@@ -40,7 +40,7 @@ export function Alert({ type = "information", heading, children, closable, onClo
         )}
       </div>
 
-      <div className="content">{children}</div>
+      <div className={styles.content}>{children}</div>
     </div>
   );
 }
