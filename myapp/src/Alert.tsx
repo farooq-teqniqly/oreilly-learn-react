@@ -1,7 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { useState } from "react";
-import { styles } from "./AlertStyles";
 
 type Props = {
   type?: "information" | "warning";
@@ -23,18 +20,26 @@ export function Alert({ type = "information", heading, children, closable, onClo
     }
   }
   return (
-    <div css={[styles.alertContainer, styles.alertText(type)]}>
-      <div css={styles.alertHeader}>
+    <div
+      className={`inline-flex flex-col text-left px-4 py-3 rounded-md border-1 border-transparent ${
+        type === "warning" ? "text-amber-900" : "text-teal-900"
+      } ${type === "warning" ? "bg-amber-50" : "bg-teal-50"}`}
+    >
+      <div className="flex items-center mb-1">
         <span
-          css={styles.alertIcon}
+          className="w-7"
           role="img"
           aria-label={type === "warning" ? "Warning" : "Information"}
         >
           {type === "warning" ? "⚠" : "ℹ️"}
         </span>
-        <span css={styles.headingText}>{heading}</span>
+        <span className="font-bold">{heading}</span>
         {closable && (
-          <button css={styles.alertCloseButton} aria-label="Close" onClick={handleCloseClick}>
+          <button
+            className="border-none bg-transparent ml-auto cursor-pointer"
+            aria-label="Close"
+            onClick={handleCloseClick}
+          >
             <span role="img" aria-label="Close">
               ❌
             </span>
@@ -42,7 +47,7 @@ export function Alert({ type = "information", heading, children, closable, onClo
         )}
       </div>
 
-      <div css={styles.alertContent}>{children}</div>
+      <div className="ml-7 text-black">{children}</div>
     </div>
   );
 }
