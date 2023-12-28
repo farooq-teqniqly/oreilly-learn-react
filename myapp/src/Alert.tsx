@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Alert.css";
 
 type Props = {
-  type?: string;
+  type?: "information" | "warning";
   heading: string;
   children: React.ReactNode;
   closable?: boolean;
