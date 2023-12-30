@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 
@@ -15,7 +15,12 @@ function Header() {
       <nav
         className={`flex overflow-x-hidden mr-4 font-semibold text-slate-600 hover:text-slate-900`}
       >
-        <Link to="products">Products</Link>
+        <NavLink
+          to="products"
+          className={({ isActive }) => `${isActive ? "text-slate-900" : "text-default"}`}
+        >
+          Products
+        </NavLink>
       </nav>
     </header>
   );
