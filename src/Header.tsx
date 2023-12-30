@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import { faScrewdriverWrench } from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
   return (
@@ -10,7 +10,7 @@ function Header() {
     >
       <div className={`flex-shrink-0`}>
         <NavLink to="/">
-          <FontAwesomeIcon icon={faLightbulb} className={`fa-2x`} />
+          <FontAwesomeIcon icon={faScrewdriverWrench} className={`fa-2x`} />
           <span className={`text-2xl font-semibold pl-2`}>React Tools</span>
         </NavLink>
       </div>
