@@ -1,8 +1,11 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import NotFoundErrorPage from "./pages/NotFoundErrorPage";
+
+const AdminPage = lazy(() => import("./pages/AdminPage"));
 
 const router = createBrowserRouter([
   {
@@ -12,6 +15,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage></HomePage>,
+      },
+      {
+        path: "admin",
+        element: (
+          <Suspense fallback={<div className="text-center p-4 text-xl">Loading...</div>}>
+            <AdminPage></AdminPage>
+          </Suspense>
+        ),
       },
       {
         path: "products",

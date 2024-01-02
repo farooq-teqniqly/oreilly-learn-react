@@ -19,9 +19,15 @@ function Header() {
       >
         <NavLink
           to="products"
-          className={({ isActive }) => `${isActive ? "text-slate-900" : "text-default"}`}
+          className={({ isActive }) => `${isActive ? "text-slate-900" : "text-default"} mr-4`}
         >
           Products
+        </NavLink>
+        <NavLink
+          to="admin"
+          className={({ isActive }) => `${isActive ? "text-slate-900" : "text-default"}`}
+        >
+          Admin
         </NavLink>
       </nav>
     </header>
