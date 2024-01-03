@@ -15,6 +15,7 @@ const defaultContact: Contact = {
 };
 
 const fieldStyle = "flex flex-col mb-2";
+const redAsterisk = <span className="text-red-400 font-bold">*</span>;
 
 function ContactPage() {
   const [contact, setContact] = useState<Contact>(defaultContact);
@@ -30,9 +31,10 @@ function ContactPage() {
       <p className="mb-3">
         Enter your contact information and we'll get back to you as soon as we can.
       </p>
-      <form onSubmit={handleSubmit}>
+      <p>Fields marked with a red asterisk ({redAsterisk}) are required.</p>
+      <form onSubmit={handleSubmit} className="pt-4">
         <div className={fieldStyle}>
-          <label htmlFor="name">Your name</label>
+          <label htmlFor="name">Your name {redAsterisk}</label>
           <input
             type="text"
             id="name"
@@ -41,7 +43,7 @@ function ContactPage() {
           />
         </div>
         <div className={fieldStyle}>
-          <label htmlFor="email">Your email address</label>
+          <label htmlFor="email">Your email address {redAsterisk}</label>
           <input
             type="text"
             id="email"
@@ -50,7 +52,7 @@ function ContactPage() {
           />
         </div>
         <div className={fieldStyle}>
-          <label htmlFor="reason">Reason you need to contact us</label>
+          <label htmlFor="reason">Reason you need to contact us {redAsterisk}</label>
           <select
             id="reason"
             value={contact.reason}
