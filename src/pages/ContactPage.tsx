@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import React, { FormEvent } from "react";
 
 interface Contact {
   name: string;
@@ -7,21 +7,21 @@ interface Contact {
   notes: string;
 }
 
-const defaultContact: Contact = {
-  name: "",
-  email: "",
-  reason: "",
-  notes: "",
-};
-
 const fieldStyle = "flex flex-col mb-2";
 const redAsterisk = <span className="text-red-400 font-bold">*</span>;
 
 function ContactPage() {
-  const [contact, setContact] = useState<Contact>(defaultContact);
-
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    const contact = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      reason: formData.get("reason"),
+      notes: formData.get("notes"),
+    } as Contact;
+
     console.log("Contact information submitted.", contact);
   };
 
@@ -35,29 +35,15 @@ function ContactPage() {
       <form onSubmit={handleSubmit} className="pt-4">
         <div className={fieldStyle}>
           <label htmlFor="name">Your name {redAsterisk}</label>
-          <input
-            type="text"
-            id="name"
-            value={contact.name}
-            onChange={(e) => setContact((c) => ({ ...c, name: e.target.value }))}
-          />
+          <input type="text" id="name" name="name" />
         </div>
         <div className={fieldStyle}>
           <label htmlFor="email">Your email address {redAsterisk}</label>
-          <input
-            type="text"
-            id="email"
-            value={contact.email}
-            onChange={(e) => setContact((c) => ({ ...c, email: e.target.value }))}
-          />
+          <input type="text" id="email" name="email" />
         </div>
         <div className={fieldStyle}>
           <label htmlFor="reason">Reason you need to contact us {redAsterisk}</label>
-          <select
-            id="reason"
-            value={contact.reason}
-            onChange={(e) => setContact((c) => ({ ...c, reason: e.target.value }))}
-          >
+          <select id="reason" name="reason">
             <option value=""></option>
             <option value="Support">Support</option>
             <option value="Feedback">Feedback</option>
@@ -66,11 +52,7 @@ function ContactPage() {
         </div>
         <div className={fieldStyle}>
           <label htmlFor="notes">Additional notes</label>
-          <textarea
-            id="notes"
-            value={contact.notes}
-            onChange={(e) => setContact((c) => ({ ...c, notes: e.target.value }))}
-          ></textarea>
+          <textarea id="notes" name="notes"></textarea>
         </div>
         <div>
           <button type="submit" className="mt2 h-10 px-6 font-semibold bg-black text-white">
