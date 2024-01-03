@@ -37,15 +37,15 @@ function ContactPage() {
       <Form method="post" className="pt-4">
         <div className={fieldStyle}>
           <label htmlFor="name">Your name {redAsterisk}</label>
-          <input type="text" id="name" name="name" />
+          <input type="text" id="name" name="name" required />
         </div>
         <div className={fieldStyle}>
           <label htmlFor="email">Your email address {redAsterisk}</label>
-          <input type="text" id="email" name="email" />
+          <input type="text" id="email" name="email" required pattern="\S+@\S+\.\S+" />
         </div>
         <div className={fieldStyle}>
           <label htmlFor="reason">Reason you need to contact us {redAsterisk}</label>
-          <select id="reason" name="reason">
+          <select id="reason" name="reason" required>
             <option value=""></option>
             <option value="Support">Support</option>
             <option value="Feedback">Feedback</option>
