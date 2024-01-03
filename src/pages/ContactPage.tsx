@@ -1,4 +1,5 @@
-import React, { FormEvent } from "react";
+import React from "react";
+import { Form, ActionFunctionArgs, redirect } from "react-router-dom";
 
 interface Contact {
   name: string;
@@ -10,21 +11,22 @@ interface Contact {
 const fieldStyle = "flex flex-col mb-2";
 const redAsterisk = <span className="text-red-400 font-bold">*</span>;
 
+export async function contactPageAction({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+
+  const contact = {
+    name: formData.get("name"),
+    email: formData.get("email"),
+    reason: formData.get("reason"),
+    notes: formData.get("notes"),
+  } as Contact;
+
+  console.log("Contact information submitted.", contact);
+
+  return redirect(`/thank-you/${formData.get("name")}`);
+}
+
 function ContactPage() {
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-
-    const contact = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      reason: formData.get("reason"),
-      notes: formData.get("notes"),
-    } as Contact;
-
-    console.log("Contact information submitted.", contact);
-  };
-
   return (
     <div className="flex flex-col py-10 max-w-md mx-auto">
       <h2 className="text-3xl font-bold underline mb-3">Contact Us</h2>
@@ -32,7 +34,7 @@ function ContactPage() {
         Enter your contact information and we'll get back to you as soon as we can.
       </p>
       <p>Fields marked with a red asterisk ({redAsterisk}) are required.</p>
-      <form onSubmit={handleSubmit} className="pt-4">
+      <Form method="post" className="pt-4">
         <div className={fieldStyle}>
           <label htmlFor="name">Your name {redAsterisk}</label>
           <input type="text" id="name" name="name" />
@@ -59,7 +61,7 @@ function ContactPage() {
             Submit
           </button>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }
