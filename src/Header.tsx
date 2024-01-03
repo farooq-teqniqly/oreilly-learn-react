@@ -24,6 +24,12 @@ function Header() {
           Products
         </NavLink>
         <NavLink
+          to="contact"
+          className={({ isActive }) => `${isActive ? "text-slate-900" : "text-default"} mr-4`}
+        >
+          Contact Us
+        </NavLink>
+        <NavLink
           to="admin"
           className={({ isActive }) => `${isActive ? "text-slate-900" : "text-default"}`}
         >

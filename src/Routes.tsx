@@ -4,6 +4,7 @@ import App from "./App";
 import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import NotFoundErrorPage from "./pages/NotFoundErrorPage";
+import ContactPage from "./pages/ContactPage";
 
 const AdminPage = lazy(() => import("./pages/AdminPage"));
 
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
             <AdminPage></AdminPage>
           </Suspense>
         ),
+      },
+      {
+        path: "contact",
+        element: <ContactPage></ContactPage>,
       },
       {
         path: "products",
