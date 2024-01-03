@@ -22,7 +22,8 @@ function ContactPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Contact>();
+  } = useForm<Contact>({ mode: "onBlur", reValidateMode: "onBlur" });
+
   const navigate = useNavigate();
 
   function onSubmit(contact: Contact) {
