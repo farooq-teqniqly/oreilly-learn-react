@@ -4,7 +4,10 @@ export async function savePost(newPostData: NewPostData) {
   const requestBody = {
     method: "POST",
     body: JSON.stringify(newPostData),
+    headers: { "Content-Type": "application/json" },
   };
+
+  console.log(requestBody);
 
   const response = await fetch(process.env.REACT_APP_API_URL!, requestBody);
   const responseBody = (await response.json()) as unknown;
