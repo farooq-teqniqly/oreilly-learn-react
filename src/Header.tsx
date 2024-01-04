@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faScrewdriverWrench } from "@fortawesome/free-solid-svg-icons";
 import authorize from "./api/authorize";
@@ -7,13 +7,15 @@ import { authenticate, signout } from "./api/authenticate";
 import { useAppContext } from "./AppContext";
 
 function Header() {
-  var { dispatch, loading, user } = useAppContext();
+  const { dispatch, loading, user, permissions } = useAppContext();
+  const navigate = useNavigate();
 
   async function handleSignInClick() {
     if (user) {
       dispatch({ type: "signout", user: user });
       await signout();
       dispatch({ type: "signedout" });
+      navigate("/");
       return;
     }
 
@@ -50,6 +52,10 @@ function Header() {
     return "Sign in";
   };
 
+  const renderAdminLink = () => {
+    return permissions?.includes("admin");
+  };
+
   return (
     <header
       className={`text-slate-400 flex justify-between items-center ml-4 mt-4 border-b-2 pb-2`}
@@ -75,12 +81,14 @@ function Header() {
         >
           Contact Us
         </NavLink>
-        <NavLink
-          to="admin"
-          className={({ isActive }) => `${isActive ? "text-slate-900" : "text-default"} mr-4`}
-        >
-          Admin
-        </NavLink>
+        {renderAdminLink() && (
+          <NavLink
+            to="admin"
+            className={({ isActive }) => `${isActive ? "text-slate-900" : "text-default"} mr-4`}
+          >
+            Admin
+          </NavLink>
+        )}
         <button
           type="submit"
           className="px-6 h-10 font-semibold bg-black text-white"
