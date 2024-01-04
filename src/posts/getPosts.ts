@@ -7,7 +7,7 @@ export async function getPosts() {
   return body;
 }
 
-export function assertIsPosts(postsData: unknown): asserts postsData is PostData[] {
+export function assertIsPosts(postsData: any): asserts postsData is PostData[] {
   if (!Array.isArray(postsData)) {
     throw new Error("posts is not an array");
   }

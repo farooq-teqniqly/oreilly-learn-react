@@ -3,3 +3,12 @@ export interface PostData {
   title: string;
   description: string;
 }
+
+export interface NewPostData {
+  title: string;
+  description: string;
+}
+
+export interface SavedPostData {
+  id: number;
+}
