@@ -24,12 +24,12 @@ function PostsPage() {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading posts...</div>;
   }
 
   return (
-    <div>
-      <h2>Posts</h2>
+    <div className="mx-auto w-96">
+      <h2 className="text-4xl text-slate-900 font-bold">Posts</h2>
       <PostLists posts={posts}></PostLists>
     </div>
   );
