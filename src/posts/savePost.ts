@@ -1,4 +1,4 @@
-import { NewPostData, SavedPostData } from "./types";
+import { NewPostData, SavedPostData, Data } from "./types";
 
 export async function savePost(newPostData: NewPostData) {
   const requestBody = {
@@ -23,5 +23,19 @@ function assertIsSavedPost(savedPost: any): asserts savedPost is SavedPostData {
 
   if (typeof savedPost.id !== "number") {
     throw new Error("id is not a number");
+  }
+}
+
+export function assertIsData(data: unknown): asserts data is Data {
+  if (typeof data !== "object") {
+    throw new Error("data is not an object.");
+  }
+
+  if (data === null) {
+    throw new Error("data is null.");
+  }
+
+  if (!("posts" in data)) {
+    throw new Error("data does not contain posts.");
   }
 }

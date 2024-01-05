@@ -12,3 +12,7 @@ export interface NewPostData {
 export interface SavedPostData {
   id: number;
 }
+
+export interface Data {
+  posts: PostData[];
+}
