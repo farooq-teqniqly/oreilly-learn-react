@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useLazyQuery, useMutation, useApolloClient } from "@apollo/client";
+import { GET_REPO_QUERY } from "../../api/getRepo";
+import { STAR_REPO_MUTATION } from "../../api/starRepo";
 import { getRepo } from "../../api/getRepo";
 import { starRepo } from "../../api/starRepo";
 import { RepoData, SearchCriteria } from "../../api/types";
@@ -12,38 +14,35 @@ export function RepoPage() {
   const [searchCriteria, setSearchCriteria] = useState<SearchCriteria | undefined>();
 
   function handleSearch(criteria: SearchCriteria) {
+    getRepo({ variables: { ...criteria } });
     setSearchCriteria(criteria);
   }
 
   function handleStarClick() {
     if (data) {
-      mutate(data.repository.id);
+      starRepo({ variables: { repoId: data.repository.id } });
     }
   }
 
-  const { data } = useQuery({
-    queryKey: ["repo", searchCriteria],
-    queryFn: () => getRepo(searchCriteria as SearchCriteria),
-    enabled: searchCriteria !== undefined,
-  });
+  const [getRepo, { data }] = useLazyQuery(GET_REPO_QUERY);
 
-  const queryClient = useQueryClient();
+  const queryClient = useApolloClient();
 
-  const { mutate } = useMutation({
-    mutationFn: starRepo,
-    onSuccess: () => {
-      queryClient.setQueryData<RepoData>(["repo", searchCriteria], (repo) => {
-        if (repo === undefined) {
-          return undefined;
-        }
-
-        return {
-          ...repo,
-          viewerHasStarred: true,
-        };
+  const [starRepo] = useMutation(STAR_REPO_MUTATION, {
+    onCompleted: () => {
+      queryClient.cache.writeQuery({
+        query: GET_REPO_QUERY,
+        data: {
+          repository: {
+            ...data.repository,
+            viewerHasStarred: true,
+          },
+        },
+        variables: searchCriteria,
       });
     },
   });
+
   return (
     <main className="max-w-xs ml-auto mr-auto">
       <SearchRepoForm onSearch={handleSearch}></SearchRepoForm>
@@ -51,7 +50,7 @@ export function RepoPage() {
         <>
           <FoundRepo
             name={data.repository.name}
-            desc={data.repository.desc}
+            description={data.repository.description}
             stars={data.repository.stargazers.totalCount}
           ></FoundRepo>
           {!data.repository.viewerHasStarred && (

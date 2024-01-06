@@ -1,13 +1,15 @@
-export const STAR_REPO_MUTATION = `
-    mutation ($repoId: ID!) {
-        addStar(input: { starrableId: $repoId }) {
-            starrable {
-                stargazers {
-                    totalCount
-                }
-            }
+import { gql } from "@apollo/client";
+
+export const STAR_REPO_MUTATION = gql`
+  mutation ($repoId: ID!) {
+    addStar(input: { starrableId: $repoId }) {
+      starrable {
+        stargazers {
+          totalCount
         }
+      }
     }
+  }
 `;
 
 export async function starRepo(repoId: string) {

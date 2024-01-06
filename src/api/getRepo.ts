@@ -1,18 +1,19 @@
 import { z } from "zod";
 import { RepoData, SearchCriteria } from "./types";
+import { gql } from "@apollo/client";
 
-export const GET_REPO_QUERY = `
-    query GetRepo($org: String!, $repo: String!) {
-        repository(owner: $org, name: $repo) {
-            id
-            name
-            description
-            viewerHasStarred
-            stargazers {
-                totalCount
-            }
-        }
+export const GET_REPO_QUERY = gql`
+  query GetRepo($org: String!, $repo: String!) {
+    repository(owner: $org, name: $repo) {
+      id
+      name
+      description
+      viewerHasStarred
+      stargazers {
+        totalCount
+      }
     }
+  }
 `;
 
 type GetRepoResponse = {

@@ -2,11 +2,11 @@ import React from "react";
 
 interface Props {
   name: string;
-  desc: string;
+  description: string;
   stars: number;
 }
 
-export function FoundRepo({ name, desc, stars }: Props) {
+export function FoundRepo({ name, description, stars }: Props) {
   return (
     <div className="py-4">
       <div className="flex flex-row items-center justify-between mb-2">
@@ -15,7 +15,7 @@ export function FoundRepo({ name, desc, stars }: Props) {
           {stars} stars
         </div>
       </div>
-      <p>{desc}</p>
+      <p>{description}</p>
     </div>
   );
 }
