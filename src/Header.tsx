@@ -10,10 +10,10 @@ function Header() {
   }
 
   return (
-    <header>
-      <img src={data.viewer.avatarUrl} alt="Viewer"></img>
-      <div>{data.viewer.name}</div>
-      <h1>GitHib Search</h1>
+    <header className="flex flex-col items-center text-slate-600">
+      <img src={data.viewer.avatarUrl} alt="Viewer" className="rounded-full"></img>
+      <div className="font-bold">{data.viewer.name}</div>
+      <h1 className="font-muted">GitHib Search</h1>
     </header>
   );
 }
