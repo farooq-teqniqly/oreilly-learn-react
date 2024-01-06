@@ -4,6 +4,7 @@ import App from "./App";
 import NotFoundErrorPage from "./pages/NotFoundErrorPage";
 import HomePage from "./pages/HomePage";
 import Header from "./Header";
+import { RepoPage } from "./pages/repo/RepoPage";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "viewer",
         element: <Header></Header>,
+      },
+      {
+        path: "repo",
+        element: <RepoPage></RepoPage>,
       },
       {
         path: "*",
